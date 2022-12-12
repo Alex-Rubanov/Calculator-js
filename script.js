@@ -1,77 +1,56 @@
 'use strict';
 
-const calcData = [
-    'AC',
-    'C',
-    '%',
-    'Back',
-    '7',
-    '8',
-    '9',
-    'x',
-    '4',
-    '5',
-    '6',
-    '-',
-    '1',
-    '2',
-    '3',
-    '+',
-    '+/-',
-    '0',
-    ',',
-    '='
-];
+let mainResult = document.querySelector('.result-final'),
+    tempResult = document.querySelector('.result .result-temporary');
 
-const calcParent = document.querySelector('.calc');
-let i = 0;
+function input() {
+    const numbers = document.querySelectorAll('[data-number]');
+    let input = '';
 
-const btns = document.createElement('div');
-btns.classList.add('calc-btns');
-calcParent.append(btns);
+    numbers.forEach(e => e.addEventListener('click', e => {
 
-function addBtn(n) {
-
-    while (i < n) {
-        const btn = document.createElement('button');
-        btn.classList.add('calc-btn');
-        btn.setAttribute(`id`, `${calcData[i]}`);
-        btn.textContent = calcData[i];
-        btns.append(btn);
-
-        i++;
-    }
+        input += e.target.textContent;
+        
+        tempResult.textContent = input;
+    }));
 }
 
-addBtn(20);
+input();
 
-const output = document.createElement('div'),
-      resultTemporary = document.createElement('div'),
-      resultFinal = document.createElement('div');
-      
-output.classList.add('result');
-resultTemporary.classList.add('result-temporary');
-resultTemporary.textContent = '525,432';
-resultFinal.classList.add('result-final');
-resultFinal.textContent = '24234254';
+function backSpace() {
+    const backSpace = document.querySelector('[data-back]');
 
-calcParent.prepend(output);
-output.prepend(resultTemporary);
-output.append(resultFinal);
+    backSpace.addEventListener('click', () => {
+        let input = tempResult.textContent;
 
-let curInput = '';
+        tempResult.textContent = input.slice(0, -1);
+    });
+}
 
-calcParent.addEventListener('click', (e) => {
-    curInput += e.target.getAttribute('id');
-    resultTemporary.textContent = curInput;
+backSpace();
 
-    
-    console.log(curInput);
-});
+function deleteLastNumber() {
+    const deleteNumber = document.querySelector('[data-delete]');
+    let input = tempResult.textContent;
 
-const resultBtn = document.getElementById('=');
+    deleteNumber.addEventListener('click', () => {
+        input = '';
 
-resultBtn.addEventListener('click', () => {
-    let result = curInput;
-    resultFinal.textContent = result;
-});
+        tempResult.textContent = input;        
+    });
+}
+
+deleteLastNumber();
+
+function clearAll() {
+    const clearAll = document.querySelector('[data-clear]');
+
+    clearAll.addEventListener('click', () => {
+        let input = '';
+
+        tempResult.textContent = input; 
+        mainResult.textContent = input; 
+    });
+}
+
+clearAll();
