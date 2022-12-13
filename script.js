@@ -1,56 +1,52 @@
-'use strict';
+class Calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement) {
+        this.previousOperandTextElement = previousOperandTextElement;
+        this.currentOperandTextElement = currentOperandTextElement;
+        this.clear();
+    }
 
-let mainResult = document.querySelector('.result-final'),
-    tempResult = document.querySelector('.result .result-temporary');
+    clear() {
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operation = undefined;
+    }
 
-function input() {
-    const numbers = document.querySelectorAll('[data-number]');
-    let input = '';
+    delete() {
 
-    numbers.forEach(e => e.addEventListener('click', e => {
+    }
 
-        input += e.target.textContent;
-        
-        tempResult.textContent = input;
-    }));
+    appendNumber(number) {
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        this.currentOperand = this.currentOperand.toString() + number.toString();
+    }
+
+    chooseOperation(operation) {
+
+    }
+
+    compute() {
+
+    }
+
+    updateDisplay() {
+        this.currentOperandTextElement.innerText = this.currentOperand;
+    }
 }
 
-input();
 
-function backSpace() {
-    const backSpace = document.querySelector('[data-back]');
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButotn = document.querySelector('[data-equals]');
+const deleteButton = document.querySelector('[data-delete');
+const allClearButton = document.querySelector('[data-all-clear]');
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
 
-    backSpace.addEventListener('click', () => {
-        let input = tempResult.textContent;
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement); 
 
-        tempResult.textContent = input.slice(0, -1);
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
     });
-}
-
-backSpace();
-
-function deleteLastNumber() {
-    const deleteNumber = document.querySelector('[data-delete]');
-    let input = tempResult.textContent;
-
-    deleteNumber.addEventListener('click', () => {
-        input = '';
-
-        tempResult.textContent = input;        
-    });
-}
-
-deleteLastNumber();
-
-function clearAll() {
-    const clearAll = document.querySelector('[data-clear]');
-
-    clearAll.addEventListener('click', () => {
-        let input = '';
-
-        tempResult.textContent = input; 
-        mainResult.textContent = input; 
-    });
-}
-
-clearAll();
+});
