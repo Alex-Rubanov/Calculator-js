@@ -12,14 +12,13 @@ body {
     background-image: linear-gradient(to left top, tomato, lightblue, #ddd);
 }
 .calc {
-    width: 25vw;
-    height: 60vh;
+    min-height: 70vh;
     border: solid 1px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 1rem;
 }
 .result {
-    height: 10vh;
+    height: 15vh;
     width: 100%;
     border: solid 1px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -28,17 +27,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: end;
+    background-color:rgba(255, 255, 255, .2)
 }
 .calc-btns {
-    width: 100%;
-    height: calc(100% - 10vh - 1rem);
-    /* border: solid 1px rgba(0, 0, 0, 0.5); */
     border-radius: 5px;
-    padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-template-rows: repeat(5, auto);
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(5, 80px);
+    grid-auto-flow: row;
     gap: 0.5rem;
+}
+.span-two {
+    grid-column: span 2;
 }
 .calc-btn {
     background-color: transparent;
@@ -49,7 +49,7 @@ body {
     align-items: center;
     cursor: pointer;
     font-size: 20px;
-    translate: 0.5s all ease;
+    transition: 0.3s all ease;
 }
 .calc-btn:hover {
     border: solid 1px #ddd;
@@ -58,18 +58,19 @@ body {
 
 }
 .result-temporary {
-    width: 70%;
+    width: 100%;
     height: 30%;
-    border: solid 1px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: end;
+    overflow: hidden;
 }
 .result-final {
-    width: 70%;
+    width: 100%;
     height: 70%;
-    border: solid 1px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: end;
     font-size: 40px;
+    overflow: hidden;
+    direction: ltr;
     
 }
